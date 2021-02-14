@@ -1,0 +1,119 @@
+@import '_vars.scss';
+@import '_extends.scss';
+@import '_mixins.scss';
+
+.title {
+  @include font(700, 40);
+}
+
+.subtitle {
+  @include font(700);
+}
+
+.textInput {
+  @include padding(false, true, 10, 15, 10, 15);
+  @include boxSize($max-width: 180);
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid $grey-color;
+  text-align: center;
+}
+
+.radio {
+  @extend %basic-shadow;
+  @include basic-animation;
+  @include padding(false, true, 10, 15, 10, 15);
+  @include margin($top: 5, $bottom: 5);
+  border-radius: calculateRem(5);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  .radioActive {
+    @include basic-animation;
+    @include pseudo();
+    @include position(absolute, 0);
+    z-index: -1;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: $accent-color;
+  }
+
+  &:hover {
+    .radioActive {
+      left: 0;
+    }
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $white-color;
+    box-shadow: none;
+  }
+
+  input:checked {
+    ~ .radioActive {
+      left: 0;
+      background-color: $green-color;
+    }
+
+    ~ span {
+      color: $white-color;
+    }
+  }
+
+  input {
+    display: none;
+  }
+}
+
+.label {
+  @include flex(center, center);
+  cursor: pointer;
+  white-space: nowrap;
+
+  .title {
+    @include font(700);
+    @include boxSize(100);
+  }
+}
+
+.button {
+  @extend %basic-shadow;
+  @include basic-animation;
+  @include padding(false, true, 10, 15, 10, 15);
+  @include boxSize($min-width: 40);
+  @include font(700);
+  border-radius: calculateRem(5);
+  border: none;
+  cursor: pointer;
+  background-color: $accent-color;
+  margin: calculateRem(5) auto;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  color: $white-color;
+
+  &:hover,
+  &:focus,
+  &:active {
+    box-shadow: none;
+  }
+}
+
+.success,
+.error {
+  @include margin($top: 10);
+  @include font(700);
+  @include boxSize($min-height: 22);
+}
+
+.error {
+  color: $red-color;
+}
+
+.success {
+  color: $green-color;
+}

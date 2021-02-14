@@ -1,0 +1,11 @@
+@import '../../generalStyles/_vars';
+@import '../../generalStyles/_extends';
+@import '../../generalStyles/_mixins';
+
+.textInput {
+  @include margin($top: 30, $bottom: 30);
+
+  &:first-of-type {
+    @include margin($right: 15);
+  }
+}

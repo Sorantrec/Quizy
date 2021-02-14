@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+@import '_reset.scss';
+@import '_vars.scss';
+@import '_extends.scss';
+@import '_mixins.scss';
+
+html {
+  @include basic-animation;
+  font-size: $bodyFs + px;
+}
+
+body {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  line-height: 1.5;
+  overflow-x: hidden;
+
+  * {
+    @include font(400, $bodyFs);
+    box-sizing: border-box;
+    outline: none;
+  }
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+.flex {
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  display: flex;
+  /* NEW, Spec - Firefox, Chrome, Opera */
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+.flex-end {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+.txt-center {
+  text-align: center;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-left {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+}
+
+.justify-center {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.justify-between {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.align-center {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.align-stretch {
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+}
+
+.flex-wrap {
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.margin-auto {
+  margin: 0 auto;
+}
+
+.relative {
+  position: relative;
+}
+
+.full-width {
+  width: 100%;
+}

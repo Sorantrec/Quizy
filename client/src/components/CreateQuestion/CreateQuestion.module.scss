@@ -1,0 +1,27 @@
+@import '../../generalStyles/_vars';
+@import '../../generalStyles/_extends';
+@import '../../generalStyles/_mixins';
+
+.row {
+  @include flex(center, center);
+  @include margin($top: 10, $bottom: 10);
+}
+
+.textInput {
+  &:not(:last-of-type) {
+    @include margin($right: 10);
+  }
+}
+
+.answersContainer {
+  @include flex(center, center, wrap);
+  @include margin($top: 10, $bottom: 10);
+
+  input {
+    @include margin($right: 10);
+  }
+
+  button {
+    margin: calculateRem(10) 0;
+  }
+}

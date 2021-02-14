@@ -1,0 +1,479 @@
+@function is-number($value) {
+  @return type-of($value)=='number';
+}
+
+@function is-string($value) {
+  @return type-of($value)=='string';
+}
+
+@mixin center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@mixin pseudo($display: block, $content: '') {
+  content: $content;
+  display: $display;
+}
+
+@function calculateRem($size) {
+  @if(type-of($size)=='string') {
+    @error $noStringError;
+  }
+
+  @else {
+    @if($size) {
+      $remSize: $size / $bodyFs;
+      @return #{$remSize}rem;
+    }
+  }
+}
+
+$border-radius: calculateRem(3);
+
+@function calculateVh($size, $viewport-height: 1080) {
+  @if(type-of($size)=='string') {
+    @error $noStringError;
+  }
+
+  @else {
+    @if($size) {
+      $vhSize: $size * 100 / $viewport-height;
+      @return #{$vhSize}vh;
+    }
+  }
+}
+
+@mixin font($font-weight: null, $font-size: null, $color: null) {
+  @if($font-size and $font-weight) {
+    font: $font-weight calculateRem($font-size)/1.5 $font;
+  }
+
+  @else if($font-weight) {
+    font: $font-weight calculateRem($bodyFs)/1.5 $font;
+  }
+
+  @else if($font-size) {
+    font: 400 calculateRem($font-size)/1.5 $font;
+  }
+
+  @if($color !=null) {
+    color: $color;
+  }
+}
+
+@mixin margin($only-one-param: false, $full: false, $top: null, $right: null, $bottom: null, $left: null) {
+  @if($full !=true) {
+    @if(type-of($only-one-param)=='number') {
+      @if($only-one-param==0) {
+        margin: $only-one-param;
+      }
+
+      @else {
+        margin: calculateRem($only-one-param);
+      }
+    }
+
+    @else if(type-of($only-one-param)=='string'and $only-one-param !='false') {
+      margin: $only-one-param;
+    }
+
+    @if($top !=null) {
+      @if($top==0) {
+        margin-top: 0;
+      }
+
+      @else if(type-of($top)=='string') {
+        margin-top: $top;
+      }
+
+      @else if(type-of($top)=='number') {
+        margin-top: calculateRem($top);
+      }
+    }
+
+    @if($right !=null) {
+      @if($right==0) {
+        margin-right: 0;
+      }
+
+      @else if(type-of($right)=='string') {
+        margin-right: $right;
+      }
+
+      @else if(type-of($right)=='number') {
+        margin-right: calculateRem($right);
+      }
+    }
+
+    @if($bottom !=null) {
+      @if($bottom==0) {
+        margin-bottom: 0;
+      }
+
+      @else if(type-of($bottom)=='string') {
+        margin-bottom: $bottom;
+      }
+
+      @else if(type-of($bottom)=='number') {
+        margin-bottom: calculateRem($bottom);
+      }
+    }
+
+    @if($left !=null) {
+      @if($left==0) {
+        margin-left: 0;
+      }
+
+      @else if(type-of($left)=='string') {
+        margin-left: $left;
+      }
+
+      @else if(type-of($left)=='number') {
+        margin-left: calculateRem($left);
+      }
+    }
+  }
+
+  @else {
+    @if(($top==0) and ($right==0) and ($bottom==0) and ($left==0)) {
+      margin: 0 0 0 0;
+    }
+
+    @else if((type-of($top)=='string') and (type-of($right)=='string') and (type-of($bottom)=='string') and (type-of($left)=='string')) {
+      margin: $top $right $bottom $left;
+    }
+
+    @else if((type-of($top)=='string') or (type-of($right)=='string') or (type-of($bottom)=='string') or (type-of($left)=='string')) {
+      @if(type-of($top)=='string'and type-of($bottom)=='string') {
+        margin: $top calculateRem($right) $bottom calculateRem($left);
+      }
+
+      @else if(type-of($right)=='string'and type-of($left)=='string') {
+        margin: calculateRem($top) $right calculateRem($bottom) $left;
+      }
+    }
+
+    @else if((type-of($top)=='number') and (type-of($right)=='number') and (type-of($bottom)=='number') and (type-of($left)=='number')) {
+      margin: calculateRem($top) calculateRem($right) calculateRem($bottom) calculateRem($left);
+    }
+  }
+}
+
+@mixin padding($only-one-param: false, $full: false, $top: null, $right: null, $bottom: null, $left: null) {
+  @if($full !=true) {
+    @if(type-of($only-one-param)=='number') {
+      @if($only-one-param==0) {
+        padding: $only-one-param;
+      }
+
+      @else {
+        padding: calculateRem($only-one-param);
+      }
+    }
+
+    @else if(type-of($only-one-param)=='string'and $only-one-param !='false') {
+      padding: $only-one-param;
+    }
+
+    @if($top !=null) {
+      @if($top==0) {
+        padding-top: 0;
+      }
+
+      @else if(type-of($top)=='string') {
+        padding-top: $top;
+      }
+
+      @else if(type-of($top)=='number') {
+        padding-top: calculateRem($top);
+      }
+    }
+
+    @if($right !=null) {
+      @if($right==0) {
+        padding-right: 0;
+      }
+
+      @else if(type-of($right)=='string') {
+        padding-right: $right;
+      }
+
+      @else if(type-of($right)=='number') {
+        padding-right: calculateRem($right);
+      }
+    }
+
+    @if($bottom !=null) {
+      @if($bottom==0) {
+        padding-bottom: 0;
+      }
+
+      @else if(type-of($bottom)=='string') {
+        padding-bottom: $bottom;
+      }
+
+      @else if(type-of($bottom)=='number') {
+        padding-bottom: calculateRem($bottom);
+      }
+    }
+
+    @if($left !=null) {
+      @if($left==0) {
+        padding-left: 0;
+      }
+
+      @else if(type-of($left)=='string') {
+        padding-left: $left;
+      }
+
+      @else if(type-of($left)=='number') {
+        padding-left: calculateRem($left);
+      }
+    }
+  }
+
+  @else {
+    @if(($top==0) and ($right==0) and ($bottom==0) and ($left==0)) {
+      padding: 0 0 0 0;
+    }
+
+    @else if((type-of($top)=='string') and (type-of($right)=='string') and (type-of($bottom)=='string') and (type-of($left)=='string')) {
+      padding: $top $right $bottom $left;
+    }
+
+    @else if((type-of($top)=='string') or (type-of($right)=='string') or (type-of($bottom)=='string') or (type-of($left)=='string')) {
+      @if(type-of($top)=='string'and type-of($bottom)=='string') {
+        padding: $top calculateRem($right) $bottom calculateRem($left);
+      }
+
+      @else if(type-of($right)=='string'and type-of($left)=='string') {
+        padding: calculateRem($top) $right calculateRem($bottom) $left;
+      }
+    }
+
+    @else if((type-of($top)=='number') and (type-of($right)=='number') and (type-of($bottom)=='number') and (type-of($left)=='number')) {
+      padding: calculateRem($top) calculateRem($right) calculateRem($bottom) calculateRem($left);
+    }
+  }
+}
+
+@mixin boxSize($width: null, $height: null,
+  $max-width: null, $max-height: null,
+  $min-width: null, $min-height: null) {
+  @if $width !=null and type-of($width)=='number' {
+    width: calculateRem($width);
+  }
+
+  @else if(type-of($width)=='string') {
+    width: $width;
+  }
+
+  @if $height !=null and type-of($height)=='number' {
+    height: calculateRem($height);
+  }
+
+  @else if(type-of($height)=='string') {
+    height: $height;
+  }
+
+  @if $max-width !=null and type-of($max-width)=='number' {
+    max-width: calculateRem($max-width);
+  }
+
+  @else if(type-of($max-width)=='string') {
+    max-width: $max-width;
+  }
+
+  @if $max-height !=null and type-of($max-height)=='number' {
+    max-height: calculateRem($max-height);
+  }
+
+  @else if(type-of($max-height)=='string') {
+    max-height: $max-height;
+  }
+
+  @if $min-width !=null and type-of($min-width)=='number' {
+    min-width: calculateRem($min-width);
+  }
+
+  @else if(type-of($min-width)=='string') {
+    min-width: $min-width;
+  }
+
+  @if $min-height !=null and type-of($min-height)=='number' {
+    min-height: calculateRem($min-height);
+  }
+
+  @else if(type-of($min-height)=='string') {
+    min-height: $min-height;
+  }
+}
+
+@mixin flex($justify-content: null, $align-items: null, $flex-wrap: null) {
+  display: flex;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  flex-wrap: $flex-wrap;
+}
+
+@mixin position($position: null, $top: null, $left: null, $right: null, $bottom: null, $z-index: null) {
+  @if($position !=null) {
+    position: $position;
+
+    @if($top==0) {
+      top: $top;
+    }
+
+    @else if(type-of($top)=='string') {
+      top: $top;
+    }
+
+    @else if(type-of($top)=='number') {
+      top: calculateVh($top);
+    }
+
+    @if($left==0) {
+      left: $left;
+    }
+
+    @else if(type-of($left)=='string') {
+      left: $left;
+    }
+
+    @else if(type-of($left)=='number') {
+      left: calculateRem($left);
+    }
+
+    @if($right==0) {
+      right: $right;
+    }
+
+    @else if(type-of($right)=='string') {
+      right: $right;
+    }
+
+    @else if(type-of($right)=='number') {
+      right: calculateRem($right);
+    }
+
+    @if($bottom==0) {
+      bottom: $bottom;
+    }
+
+    @else if(type-of($bottom)=='string') {
+      bottom: $bottom;
+    }
+
+    @else if(type-of($bottom)=='number') {
+      bottom: calculateVh($bottom);
+    }
+
+    @if($z-index) {
+      z-index: $z-index;
+    }
+  }
+
+  @else {
+    @error 'Please write the position at least';
+  }
+}
+
+@mixin position_center($position: null, $horizontal-center: null, $vertical-center: null, $z-index: null) {
+  @if($position) {
+    position: $position;
+
+    @if($horizontal-center and $vertical-center) {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    @else if($horizontal-center) {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    @else if($vertical-center) {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    @if($z-index) {
+      z-index: $z-index;
+    }
+  }
+
+  @else if(type-of($position)==number) {
+    @error 'Please write position which is not a number';
+  }
+}
+
+@mixin slideUp($z-index: null) {
+  z-index: $z-index;
+  height: 0;
+  overflow: hidden;
+  transform: rotateX(90deg);
+}
+
+@mixin slideDown($z-index: null) {
+  z-index: $z-index;
+  height: 100%;
+  overflow: initial;
+  transform: rotateX(0deg);
+}
+
+@mixin fade($type) {
+  @if($type=='hide') {
+    @include basic-animation;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  @else if($type=='show') {
+    @include basic-animation;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@mixin border-radius($top: 0, $right: 0, $bottom: 0, $left: 0) {
+  @if($top !=0 and type-of($top)=='number'and $right !=0 and type-of($right)=='number'and $bottom !=0 and type-of($bottom)=='number'and $left !=0 and type-of($left)=='number') {
+    border-radius: calculateRem($top) calculateRem($right) calculateRem($bottom) calculateRem($left);
+  }
+
+  @else if(type-of($top)=='string'and type-of($right)=='string'and type-of($bottom)=='string'and type-of($left)=='string') {
+    border-radius: $top $right $bottom $left;
+  }
+
+  @else if($top==0 and $right==0 and $bottom==0 and $left==0) {
+    border-radius: $top $right $bottom $left;
+  }
+}
+
+@mixin crop-txt($max-width) {
+  max-width: $max-width;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin basic-animation($transition-property: all, $transition-duration: .2s, $transition-timing: ease-in-out, $transition-delay: null) {
+  transition: $transition-property $transition-duration $transition-timing;
+  transition-delay: $transition-delay;
+}
+
+@mixin hide-txt {
+  font-size: 0;
+}

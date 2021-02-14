@@ -1,0 +1,64 @@
+@import '../../generalStyles/_vars';
+@import '../../generalStyles/_extends';
+@import '../../generalStyles/_mixins';
+
+.container {
+  @include position_center(absolute, true, true);
+  @include boxSize($min-height: 530);
+  width: 90%;
+  text-align: center; 
+}
+
+.title {
+  @include margin($top: 10, $bottom: 40);
+}
+
+.answers {
+  @include flex(center, center, wrap);
+  @include margin($top: 10, $bottom: 10);
+
+  label {
+    &:not(:last-of-type) {
+      @include margin($right: 10);
+    }
+  }
+}
+
+.imgBlock {
+  @extend %basic-shadow;
+  @include boxSize(200);
+  border-radius: calculateRem(5);
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.phoneBlock {
+  display: block;
+
+  span {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  input {
+    @include margin($top: 0);
+  }
+}
+
+.textInput {
+  @include margin($top: 30, $bottom: 10);
+}
+
+.logo {
+  @include font(700, 40, $color);
+  position: absolute;
+  top: - calculateVh(210);
+  left: 0;
+  text-decoration: none;
+
+  span {
+    color: $yellow-color;
+    font-size: inherit;
+  }
+}
